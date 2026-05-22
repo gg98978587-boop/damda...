@@ -930,7 +930,7 @@ async function addJourneyPhotos(idx, input) {
             }
 
             // 이미 같은 사진 있으면 중복 생성 방지
-            if(document.querySelector(`[data-photo-id="${data.id}"]`)) {
+            if(document.querySelector(`[data-photo-id="${item.id}"]`)) {
                 return;
             }
 
@@ -960,7 +960,7 @@ async function addJourneyPhotos(idx, input) {
                     .eq('id', data.id);
             };
 
-            if(!document.querySelector(`[data-photo-id="${data.id}"]`)){
+            if(!document.querySelector(`[data-photo-id="${item.id}"]`)){
                 grid.insertBefore(wrap, addBtn);
             }
         };
@@ -1232,6 +1232,10 @@ async function initializeApp() {
         await loadAboutPhotoFromSupabase();
     }
 
+    if (typeof loadActionsFromSupabase === 'function') {
+        await loadActionsFromSupabase();
+    }
+
     updateForest();
 
     document.getElementById('loading').style.display = 'none';
@@ -1475,7 +1479,7 @@ async function loadJourneyPhotosFromSupabase() {
                 .eq('id', item.id);
         };
 
-        if(!document.querySelector(`[data-photo-id="${data.id}"]`)){
+        if(!document.querySelector(`[data-photo-id="${item.id}"]`)){
                 grid.insertBefore(wrap, addBtn);
             }
     });
@@ -1483,10 +1487,8 @@ async function loadJourneyPhotosFromSupabase() {
 
 
 
-
 window.addEventListener('load', () => {
     loadActionsFromSupabase();
-    loadJourneyPhotosFromSupabase();
 });
 </script>
 </body>
